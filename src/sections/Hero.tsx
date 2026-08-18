@@ -1,15 +1,16 @@
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import WordsPullUp from '../components/WordsPullUp';
-
-const NAV_ITEMS = ['Work', 'Studio', 'Process', 'Services', 'Contact'];
+import { useQuoteModal } from '../context/QuoteModalContext';
 
 const EASE: [number, number, number, number] = [0.16, 1, 0.3, 1];
 
 export default function Hero() {
+  const { openModal } = useQuoteModal();
+
   return (
-    <section className="relative h-screen p-4 md:p-6">
-      <div className="relative w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden">
+    <section id="work" className="relative h-screen p-4 md:p-6">
+      <div className="relative z-20 w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden">
         <video
           autoPlay
           loop
@@ -30,30 +31,10 @@ export default function Hero() {
         </div>
 
         <img
-          src="/alwes-logo.png"
+          src={`${import.meta.env.BASE_URL}alwes-logo.png`}
           alt="ALWES"
           className="absolute top-4 left-4 md:top-6 md:left-6 h-6 sm:h-8 z-10"
         />
-
-        <nav className="absolute top-0 left-1/2 -translate-x-1/2 z-10">
-          <div className="bg-black rounded-b-2xl md:rounded-b-3xl px-4 py-2 md:px-8">
-            <ul className="flex items-center gap-3 sm:gap-6 md:gap-12 lg:gap-14">
-              {NAV_ITEMS.map((item) => (
-                <li key={item}>
-                  <a
-                    href="#"
-                    className="text-[10px] sm:text-xs md:text-sm transition-colors"
-                    style={{ color: 'rgba(225, 224, 204, 0.8)' }}
-                    onMouseEnter={(e) => (e.currentTarget.style.color = '#E1E0CC')}
-                    onMouseLeave={(e) => (e.currentTarget.style.color = 'rgba(225, 224, 204, 0.8)')}
-                  >
-                    {item}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </nav>
 
         <div
           className="absolute left-3 sm:left-5 md:left-8 top-1/2 z-10"
@@ -70,7 +51,7 @@ export default function Hero() {
         <div className="absolute bottom-0 left-0 right-0 md:left-auto p-8 sm:p-8 md:p-12 z-10">
           <div className="flex flex-col items-start gap-4 sm:gap-6 max-w-xs sm:max-w-sm md:max-w-md mx-auto md:mx-0 md:ml-auto">
             <motion.p
-              className="text-primary/70 text-xs sm:text-sm md:text-base"
+              className="text-white/70 text-xs sm:text-sm md:text-base"
               style={{ lineHeight: 1.2 }}
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -81,8 +62,9 @@ export default function Hero() {
               end, under one roof.
             </motion.p>
 
-            <motion.a
-              href="#"
+            <motion.button
+              type="button"
+              onClick={openModal}
               className="group inline-flex items-center gap-2 bg-primary rounded-full pl-5 pr-1.5 py-1.5 sm:pl-6 sm:pr-2 sm:py-2 transition-all hover:gap-3"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -94,7 +76,7 @@ export default function Hero() {
               <span className="flex items-center justify-center bg-black rounded-full w-9 h-9 sm:w-10 sm:h-10 transition-transform group-hover:scale-110">
                 <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
               </span>
-            </motion.a>
+            </motion.button>
           </div>
         </div>
       </div>
