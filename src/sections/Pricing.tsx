@@ -79,7 +79,7 @@ export default function Pricing() {
   return (
     <section
       id="services"
-      className="relative min-h-screen bg-black py-16 sm:py-24 px-6 sm:px-8 md:px-6 overflow-hidden"
+      className="relative min-h-dvh bg-black py-16 sm:py-24 px-6 sm:px-8 md:px-6 overflow-hidden"
     >
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
 

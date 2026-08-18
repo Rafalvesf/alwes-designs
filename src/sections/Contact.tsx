@@ -10,7 +10,7 @@ export default function Contact() {
     <section
       id="contact"
       data-snap-center
-      className="relative min-h-screen flex items-center bg-[#ddd0c3] py-16 sm:py-24 md:py-32 px-6 md:px-4 overflow-hidden [scroll-snap-align:center]"
+      className="relative min-h-dvh flex items-center bg-[#ddd0c3] py-16 sm:py-24 md:py-32 px-6 md:px-4 overflow-hidden [scroll-snap-align:center]"
     >
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
 

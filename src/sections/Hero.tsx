@@ -9,7 +9,7 @@ export default function Hero() {
   const { openModal } = useQuoteModal();
 
   return (
-    <section id="work" className="relative h-screen p-4 md:p-6">
+    <section id="work" className="relative h-dvh p-4 md:p-6">
       <div className="relative z-20 w-full h-full rounded-2xl md:rounded-[2rem] overflow-hidden">
         <video
           autoPlay
@@ -37,7 +37,7 @@ export default function Hero() {
         />
 
         <div
-          className="absolute left-3 sm:left-5 md:left-8 top-1/2 z-10"
+          className="absolute left-3 sm:left-5 md:left-8 top-[38%] sm:top-[42%] md:top-1/2 z-10"
           style={{ transform: 'translateY(-50%)' }}
         >
           <h1

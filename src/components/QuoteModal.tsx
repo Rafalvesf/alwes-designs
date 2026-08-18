@@ -175,7 +175,7 @@ export default function QuoteModal() {
 
           <motion.div
             onWheel={(e) => e.stopPropagation()}
-            className="relative w-full max-w-2xl max-h-[88vh] overflow-y-auto rounded-2xl md:rounded-[2rem] bg-[#101010] p-6 sm:p-10 [&::-webkit-scrollbar]:hidden"
+            className="relative w-full max-w-2xl max-h-[88dvh] overflow-y-auto rounded-2xl md:rounded-[2rem] bg-[#101010] p-6 sm:p-10 [&::-webkit-scrollbar]:hidden"
             style={{ scrollbarWidth: 'none' }}
             initial={{ y: 24, opacity: 0, scale: 0.98 }}
             animate={{ y: 0, opacity: 1, scale: 1 }}
