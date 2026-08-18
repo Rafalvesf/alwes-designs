@@ -3,10 +3,10 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, Check } from 'lucide-react';
 import WordsPullUpMultiStyle from '../components/WordsPullUpMultiStyle';
 import TopBanner from '../components/TopBanner';
-import useHorizontalScroll from '../hooks/useHorizontalScroll';
 import { BASE_FEATURES } from '../data/pricing';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
+const MOBILE_FEATURE_LIMIT = 4;
 
 interface PricingCardShellProps {
   index: number;
@@ -21,7 +21,7 @@ function PricingCardShell({ index, className = '', children }: PricingCardShellP
   return (
     <motion.div
       ref={ref}
-      className={`relative rounded-2xl bg-[#212121] p-6 sm:p-8 flex flex-col ${className}`}
+      className={`relative rounded-2xl bg-[#212121] p-5 sm:p-8 flex flex-col ${className}`}
       initial={{ y: 24, opacity: 0 }}
       animate={isInView ? { y: 0, opacity: 1 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15, ease: EASE }}
@@ -74,16 +74,13 @@ function CardCta({ label, onClick }: { label: string; onClick?: () => void }) {
 }
 
 export default function Pricing() {
-  const { scrollRef, isDragging, handleWheel, handlePointerDown, handlePointerMove, endDrag } =
-    useHorizontalScroll<HTMLDivElement>();
-
   return (
     <section id="services" className="relative min-h-dvh flex flex-col bg-black overflow-hidden">
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
       <TopBanner />
 
-      <div className="relative flex-1 flex flex-col justify-center py-16 sm:py-24 px-6 sm:px-8 md:px-6">
-        <div className="relative max-w-6xl mx-auto text-center mb-10 sm:mb-14">
+      <div className="relative flex-1 flex flex-col justify-center py-10 sm:py-24 px-6 sm:px-8 md:px-6">
+        <div className="relative max-w-6xl mx-auto text-center mb-6 sm:mb-14">
           <span className="text-white text-[10px] sm:text-xs uppercase tracking-widest">
             Serviços
           </span>
@@ -92,7 +89,7 @@ export default function Pricing() {
               segments={[{ text: 'Preços feitos à sua medida.', className: 'text-white' }]}
             />
           </h2>
-          <h2 className="mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal">
+          <h2 className="mt-2 hidden sm:block text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal">
             <WordsPullUpMultiStyle
               segments={[
                 { text: 'Comece pela base, cresça quando precisar.', className: 'text-gray-500' },
@@ -101,22 +98,8 @@ export default function Pricing() {
           </h2>
         </div>
 
-        <div
-          ref={scrollRef}
-          onWheel={handleWheel}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={endDrag}
-          onPointerLeave={endDrag}
-          className={`relative max-w-6xl mx-auto flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 h-[560px] sm:h-[480px] overflow-x-auto sm:overflow-visible snap-x snap-mandatory sm:snap-none pb-2 -mx-6 px-6 sm:mx-auto sm:px-0 [&::-webkit-scrollbar]:hidden sm:cursor-auto ${
-            isDragging ? 'cursor-grabbing select-none scroll-auto' : 'cursor-grab scroll-smooth'
-          }`}
-          style={{ scrollbarWidth: 'none' }}
-        >
-          <CardShell
-            index={0}
-            className="relative h-full snap-center sm:snap-align-none shrink-0 sm:shrink w-full sm:w-auto"
-          >
+        <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 sm:h-[480px]">
+          <CardShell index={0} className="hidden sm:block relative h-full">
             <video
               autoPlay
               loop
@@ -133,10 +116,7 @@ export default function Pricing() {
             </div>
           </CardShell>
 
-          <PricingCardShell
-            index={1}
-            className="h-full snap-center sm:snap-align-none shrink-0 sm:shrink w-full sm:w-auto"
-          >
+          <PricingCardShell index={1} className="h-full">
             <span className="text-white text-xs sm:text-sm tracking-widest">01 — WEBSITE</span>
 
             <h3 className="mt-4 text-2xl sm:text-3xl text-white">A partir de 790€</h3>
@@ -144,44 +124,48 @@ export default function Pricing() {
               A base para colocar o seu negócio online.
             </p>
 
-            <ul className="mt-6 space-y-2.5 flex-1">
-              {BASE_FEATURES.map((item) => (
-                <li key={item} className="flex items-start gap-2 text-xs sm:text-sm text-gray-400">
+            <ul className="mt-4 sm:mt-6 space-y-2 sm:space-y-2.5 flex-1">
+              {BASE_FEATURES.map((item, i) => (
+                <li
+                  key={item}
+                  className={`flex items-start gap-2 text-xs sm:text-sm text-gray-400 ${
+                    i >= MOBILE_FEATURE_LIMIT ? 'hidden sm:flex' : ''
+                  }`}
+                >
                   <Check className="w-4 h-4 text-white shrink-0 mt-0.5" />
                   <span>{item}</span>
                 </li>
               ))}
+              {BASE_FEATURES.length > MOBILE_FEATURE_LIMIT && (
+                <li className="sm:hidden text-[11px] text-gray-500 italic">
+                  + {BASE_FEATURES.length - MOBILE_FEATURE_LIMIT} incluídos
+                </li>
+              )}
             </ul>
           </PricingCardShell>
 
-          <PricingCardShell
-            index={2}
-            className="h-full snap-center sm:snap-align-none shrink-0 sm:shrink w-full sm:w-auto"
-          >
+          <PricingCardShell index={2} className="h-full">
             <span className="text-white text-xs sm:text-sm tracking-widest">02 — PERSONALIZE</span>
 
             <h3 className="mt-4 text-xl sm:text-2xl text-white">O que precisa além da base?</h3>
             <p className="mt-3 text-xs sm:text-sm text-gray-400">
               O seu negócio não precisa de funcionalidades que não vai utilizar.
             </p>
-            <p className="mt-2 text-xs sm:text-sm text-gray-400 flex-1">
+            <p className="mt-2 hidden sm:block text-xs sm:text-sm text-gray-400 flex-1">
               Escolha apenas o que faz sentido para o seu projeto e nós adicionamos ao website.
             </p>
 
-            <p className="mt-6 text-xs sm:text-sm text-gray-500 leading-relaxed">
+            <p className="mt-4 sm:mt-6 text-xs sm:text-sm text-gray-500 leading-relaxed">
               Booking · E-commerce · CRM · Landing Pages · SEO avançado · Automações · Multilingue ·
               Pagamentos · ...
             </p>
 
-            <p className="mt-4 text-[11px] sm:text-xs text-gray-500 italic">
+            <p className="mt-4 hidden sm:block text-[11px] sm:text-xs text-gray-500 italic">
               Cada módulo tem o seu próprio custo.
             </p>
           </PricingCardShell>
 
-          <PricingCardShell
-            index={3}
-            className="h-full snap-center sm:snap-align-none shrink-0 sm:shrink w-full sm:w-auto mr-6 sm:mr-0"
-          >
+          <PricingCardShell index={3} className="h-full">
             <span className="text-white text-xs sm:text-sm tracking-widest">03 — À SUA MEDIDA</span>
 
             <h3 className="mt-4 text-xl sm:text-2xl text-white">Construa apenas o que precisa.</h3>
@@ -190,7 +174,7 @@ export default function Pricing() {
               negócio necessita.
             </p>
 
-            <div className="mt-6 text-xs sm:text-sm text-white space-y-1">
+            <div className="mt-4 sm:mt-6 text-xs sm:text-sm text-white space-y-1">
               <p>Website Base 790€</p>
               <p className="text-gray-500">+</p>
               <p>Módulos selecionados</p>
@@ -198,7 +182,7 @@ export default function Pricing() {
               <p>Projeto final</p>
             </div>
 
-            <p className="mt-4 text-[11px] sm:text-xs text-gray-500 italic leading-relaxed">
+            <p className="mt-4 hidden sm:block text-[11px] sm:text-xs text-gray-500 italic leading-relaxed">
               Sem funcionalidades desnecessárias.
               <br />
               Sem pacotes que não se adaptam ao seu negócio.
