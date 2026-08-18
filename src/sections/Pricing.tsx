@@ -3,6 +3,7 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, Check } from 'lucide-react';
 import WordsPullUpMultiStyle from '../components/WordsPullUpMultiStyle';
 import TopBanner from '../components/TopBanner';
+import { useQuoteModal } from '../context/QuoteModalContext';
 import { BASE_FEATURES } from '../data/pricing';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -74,6 +75,8 @@ function CardCta({ label, onClick }: { label: string; onClick?: () => void }) {
 }
 
 export default function Pricing() {
+  const { openModal } = useQuoteModal();
+
   return (
     <section id="services" className="relative min-h-dvh flex flex-col bg-black overflow-hidden">
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
@@ -188,7 +191,7 @@ export default function Pricing() {
               Sem pacotes que não se adaptam ao seu negócio.
             </p>
 
-            <CardCta label="Falar connosco" />
+            <CardCta label="Falar connosco" onClick={openModal} />
           </PricingCardShell>
         </div>
       </div>
