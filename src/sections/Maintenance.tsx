@@ -106,15 +106,15 @@ export default function Maintenance() {
         ))}
       </div>
 
-      <div className="relative max-w-4xl mx-auto mt-4 rounded-2xl bg-[#212121] px-6 py-4 sm:py-6 text-center">
+      <div className="hidden sm:block relative max-w-4xl mx-auto mt-4 rounded-2xl bg-[#212121] px-6 py-4 sm:py-6 text-center">
         <p className="text-sm sm:text-base text-white">Precisa de algo maior?</p>
-        <p className="mt-1 hidden sm:block text-xs sm:text-sm text-gray-400">
+        <p className="mt-1 text-xs sm:text-sm text-gray-400">
           Novas funcionalidades, módulos e desenvolvimento personalizado são orçamentados
           separadamente.
         </p>
       </div>
 
-      <div className="relative max-w-4xl mx-auto mt-4 sm:mt-10 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
+      <div className="hidden sm:grid relative max-w-4xl mx-auto mt-4 sm:mt-10 grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 text-center">
         {FUNNEL_STEPS.map((step) => (
           <div key={step.label}>
             <p className="text-[10px] sm:text-xs uppercase tracking-widest text-gray-500">
