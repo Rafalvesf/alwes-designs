@@ -10,9 +10,15 @@ function scrollToSection(id: string) {
   document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
 }
 
-export default function TopBanner() {
+interface TopBannerProps {
+  variant?: 'dark' | 'light';
+}
+
+export default function TopBanner({ variant = 'dark' }: TopBannerProps) {
+  const isLight = variant === 'light';
+
   return (
-    <nav className="sticky top-0 inset-x-0 z-10 relative flex items-center justify-center bg-[#212121] px-4 sm:px-6 py-3">
+    <nav className="sticky top-0 inset-x-0 z-10 flex items-center justify-center px-4 sm:px-6 py-3">
       <button
         type="button"
         onClick={() => scrollToSection('work')}
@@ -22,7 +28,7 @@ export default function TopBanner() {
         <img
           src={`${import.meta.env.BASE_URL}alwes-logo.png`}
           alt="ALWES"
-          className="h-5 sm:h-6"
+          className={`h-5 sm:h-6 ${isLight ? 'invert' : ''}`}
         />
       </button>
 
@@ -32,7 +38,9 @@ export default function TopBanner() {
             <button
               type="button"
               onClick={() => scrollToSection(target)}
-              className="text-[11px] md:text-xs text-white/60 hover:text-white transition-colors"
+              className={`text-[11px] md:text-xs transition-colors ${
+                isLight ? 'text-black/60 hover:text-black' : 'text-white/60 hover:text-white'
+              }`}
             >
               {label}
             </button>

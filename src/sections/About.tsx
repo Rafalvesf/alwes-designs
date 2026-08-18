@@ -27,7 +27,7 @@ export default function About() {
       className="relative min-h-dvh flex flex-col bg-[#ddd0c3] overflow-hidden [scroll-snap-align:center]"
     >
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
-      <TopBanner />
+      <TopBanner variant="light" />
 
       <div className="relative flex-1 flex items-center py-16 sm:py-24 md:py-32 px-6 md:px-4">
         <div className="relative w-full bg-[#212121] rounded-2xl md:rounded-[2rem] max-w-6xl mx-auto px-6 py-16 sm:px-10 sm:py-20 md:px-16 md:py-28 text-center">
