@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion';
 import { Check } from 'lucide-react';
 import WordsPullUpMultiStyle from '../components/WordsPullUpMultiStyle';
 import TopBanner from '../components/TopBanner';
-import useHorizontalScroll from '../hooks/useHorizontalScroll';
 import { MAINTENANCE_PLANS } from '../data/pricing';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -66,17 +65,6 @@ function PlanCard({ index, label, price, description, features, className = '' }
 }
 
 export default function Maintenance() {
-  const {
-    scrollRef,
-    isDragging,
-    handleWheel,
-    handlePointerDown,
-    handlePointerMove,
-    endDrag,
-    handleTouchStart,
-    handleTouchEnd,
-  } = useHorizontalScroll<HTMLDivElement>();
-
   return (
     <section id="maintenance" className="relative min-h-dvh flex flex-col bg-black overflow-hidden">
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
@@ -100,21 +88,7 @@ export default function Maintenance() {
           </p>
         </div>
 
-        <div
-          ref={scrollRef}
-          onWheel={handleWheel}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={endDrag}
-          onPointerLeave={endDrag}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchEnd}
-          className={`relative max-w-4xl mx-auto flex sm:grid sm:grid-cols-2 gap-3 sm:gap-4 h-[440px] sm:h-auto overflow-x-auto sm:overflow-visible touch-pan-x pb-2 -mx-6 px-6 sm:mx-auto sm:px-0 [&::-webkit-scrollbar]:hidden sm:cursor-auto ${
-            isDragging ? 'cursor-grabbing select-none scroll-auto' : 'cursor-grab scroll-smooth'
-          }`}
-          style={{ scrollbarWidth: 'none' }}
-        >
+        <div className="relative max-w-4xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
           {MAINTENANCE_PLANS.map((plan, i) => (
             <PlanCard
               key={plan.id}
@@ -123,7 +97,6 @@ export default function Maintenance() {
               price={plan.price}
               description={plan.description}
               features={plan.features}
-              className="h-full shrink-0 sm:shrink w-[80vw] sm:w-auto"
             />
           ))}
         </div>

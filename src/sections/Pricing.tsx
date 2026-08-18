@@ -3,7 +3,6 @@ import { motion, useInView } from 'framer-motion';
 import { ArrowUpRight, Check } from 'lucide-react';
 import WordsPullUpMultiStyle from '../components/WordsPullUpMultiStyle';
 import TopBanner from '../components/TopBanner';
-import useHorizontalScroll from '../hooks/useHorizontalScroll';
 import { BASE_FEATURES } from '../data/pricing';
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -75,17 +74,6 @@ function CardCta({ label, onClick }: { label: string; onClick?: () => void }) {
 }
 
 export default function Pricing() {
-  const {
-    scrollRef,
-    isDragging,
-    handleWheel,
-    handlePointerDown,
-    handlePointerMove,
-    endDrag,
-    handleTouchStart,
-    handleTouchEnd,
-  } = useHorizontalScroll<HTMLDivElement>();
-
   return (
     <section id="services" className="relative min-h-dvh flex flex-col bg-black overflow-hidden">
       <div className="bg-noise absolute inset-0 opacity-[0.15] pointer-events-none" />
@@ -110,25 +98,8 @@ export default function Pricing() {
           </h2>
         </div>
 
-        <div
-          ref={scrollRef}
-          onWheel={handleWheel}
-          onPointerDown={handlePointerDown}
-          onPointerMove={handlePointerMove}
-          onPointerUp={endDrag}
-          onPointerLeave={endDrag}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-          onTouchCancel={handleTouchEnd}
-          className={`relative max-w-6xl mx-auto flex sm:grid sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 h-[440px] sm:h-[480px] overflow-x-auto sm:overflow-visible touch-pan-x pb-2 -mx-6 px-6 sm:mx-auto sm:px-0 [&::-webkit-scrollbar]:hidden sm:cursor-auto ${
-            isDragging ? 'cursor-grabbing select-none scroll-auto' : 'cursor-grab scroll-smooth'
-          }`}
-          style={{ scrollbarWidth: 'none' }}
-        >
-          <CardShell
-            index={0}
-            className="relative h-full shrink-0 sm:shrink w-[80vw] sm:w-auto"
-          >
+        <div className="relative max-w-6xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 sm:h-[480px]">
+          <CardShell index={0} className="relative h-48 sm:h-full">
             <video
               autoPlay
               loop
@@ -145,10 +116,7 @@ export default function Pricing() {
             </div>
           </CardShell>
 
-          <PricingCardShell
-            index={1}
-            className="h-full shrink-0 sm:shrink w-[80vw] sm:w-auto"
-          >
+          <PricingCardShell index={1} className="sm:h-full">
             <span className="text-white text-xs sm:text-sm tracking-widest">01 — WEBSITE</span>
 
             <h3 className="mt-4 text-2xl sm:text-3xl text-white">A partir de 790€</h3>
@@ -176,10 +144,7 @@ export default function Pricing() {
             </ul>
           </PricingCardShell>
 
-          <PricingCardShell
-            index={2}
-            className="h-full shrink-0 sm:shrink w-[80vw] sm:w-auto"
-          >
+          <PricingCardShell index={2} className="sm:h-full">
             <span className="text-white text-xs sm:text-sm tracking-widest">02 — PERSONALIZE</span>
 
             <h3 className="mt-4 text-xl sm:text-2xl text-white">O que precisa além da base?</h3>
@@ -200,10 +165,7 @@ export default function Pricing() {
             </p>
           </PricingCardShell>
 
-          <PricingCardShell
-            index={3}
-            className="h-full shrink-0 sm:shrink w-[80vw] sm:w-auto mr-6 sm:mr-0"
-          >
+          <PricingCardShell index={3} className="sm:h-full">
             <span className="text-white text-xs sm:text-sm tracking-widest">03 — À SUA MEDIDA</span>
 
             <h3 className="mt-4 text-xl sm:text-2xl text-white">Construa apenas o que precisa.</h3>
